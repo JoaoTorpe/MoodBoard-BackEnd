@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,9 +32,12 @@ public class BoardsController {
 	  }
 	 
 	  @GetMapping(value = "/{id}")
-	  public ResponseEntity<Optional<Board>> findById(@PathVariable Long id ){
+	  public Board findById(@PathVariable Long id ){
 		  
-		  return ResponseEntity.ok(Repository.findById(id));
+		  Optional<Board> board = Repository.findById(id);
+		  
+		  return board.orElseThrow();
+		  
 	  }
 	  
 	  @PostMapping
@@ -47,6 +51,19 @@ public class BoardsController {
 	public void deleteBoard(@PathVariable Long id ) {
 		
 		Repository.deleteById(id);
+	}
+	
+	@PutMapping(value = "/{id}")
+	public void updateBoard(@PathVariable Long id, @RequestBody Board b ) {
+		
+		Board obj = findById(id);
+		
+		obj.setDescription(b.getDescription());
+		obj.setImgUrl(b.getImgUrl());
+		
+		Repository.save(obj);
+		
+		
 	}
 	  
 	  
