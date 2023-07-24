@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,13 +25,15 @@ public class BoardsController {
 	@Autowired
 	private BoardRepository Repository;
 	
+	  @CrossOrigin(origins = "*", allowedHeaders = "*")
 	  @GetMapping 
 	  public ResponseEntity<List<Board>> findAll(){
 		  	
 		  List<Board> List = Repository.findAll();
+		  
 		  return ResponseEntity.ok().body(List);
 	  }
-	 
+	  @CrossOrigin(origins = "*", allowedHeaders = "*")
 	  @GetMapping(value = "/{id}")
 	  public Board findById(@PathVariable Long id ){
 		  
@@ -39,14 +42,14 @@ public class BoardsController {
 		  return board.orElseThrow();
 		  
 	  }
-	  
+	  @CrossOrigin(origins = "*", allowedHeaders = "*")
 	  @PostMapping
 	  public void addBoardData(@RequestBody Board b ) {
 		   
 		  Repository.save(b);
 		  
 	  }
-	  
+	  @CrossOrigin(origins = "*", allowedHeaders = "*")
 	@DeleteMapping(value = "/{id}")
 	public void deleteBoard(@PathVariable Long id ) {
 		
