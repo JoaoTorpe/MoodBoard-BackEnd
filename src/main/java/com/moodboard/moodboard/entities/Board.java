@@ -46,10 +46,16 @@ public class Board implements Serializable {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+	
+	
+
+	public Long getId() {
+		return id;
+	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		return Objects.hash(imgUrl);
 	}
 
 	@Override
@@ -61,10 +67,13 @@ public class Board implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Board other = (Board) obj;
-		return Objects.equals(id, other.id);
+		return Objects.equals(imgUrl, other.imgUrl);
 	}
-	
-	
+
+
+
+
+
 	
 	
 	

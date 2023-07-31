@@ -49,12 +49,30 @@ public class BoardsController {
 		  Repository.save(b);
 		  
 	  }
-	  @CrossOrigin(origins = "*", allowedHeaders = "*")
-	@DeleteMapping(value = "/{id}")
-	public void deleteBoard(@PathVariable Long id ) {
-		
-		Repository.deleteById(id);
-	}
+	 
+	@CrossOrigin(origins = "*", allowedHeaders = "*")
+	 @PostMapping("/delete")
+	  public void deleteBoard(@RequestBody Board b ) {
+		   
+		   System.out.println(b.getImgUrl());
+		   
+	   List<Board> allBoards= Repository.findAll();
+	   Long id = null;
+	   for(Board board : allBoards) {
+		   
+		   if(board.getImgUrl().equals(b.getImgUrl())) {
+			   
+			  
+				   id = board.getId();
+			
+		   }   
+			   
+		   }
+	
+		    Repository.deleteById(id);
+}
+		  
+	  
 	
 	@PutMapping(value = "/{id}")
 	public void updateBoard(@PathVariable Long id, @RequestBody Board b ) {
@@ -65,9 +83,9 @@ public class BoardsController {
 		obj.setImgUrl(b.getImgUrl());
 		
 		Repository.save(obj);
-		
-		
 	}
+	
+	
 	  
 	  
 	
